@@ -1,0 +1,351 @@
+{% load static %}
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    {% comment %} {% for user_role in request.user.role.all %} {% endcomment %}
+    {%  if 'hod' in request.COOKIES.role %}
+    <!-- Brand Logo -->
+        <a href="{{admin_home}}" class="brand-link">
+        <img src="{% static 'dist/img/AdminLTELogo.png' %} " alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Admin Panel</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="{{ request.user.profile_pic}}" class="img-circle elevation-2" alt="User Image">
+            </div> 
+            <div class="info">
+                <a href="#" class="d-block">{{user}}</a>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{% if user.id %}{% url 'admin_home' user_id=user.id %}{% endif %}" class="nav-link">
+
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Home
+                        </p>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    
+                    <a href="{% if user.id %}{% url 'admin_view_profile' user_id=user.id %}{% endif %}" class="nav-link">
+
+
+                       
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            View/Edit Profile
+                        </p>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="{% if user.id %}{% url 'admin_notify_staff' user_id=user.id %}{% endif %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Notify Staff
+
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% if user.id %}{% url 'admin_notify_student' user_id=user.id %}{% endif %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Notify Student
+
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% if user.id %}{% url 'add_staff' user_id=user.id %}{% endif %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Add Staff
+
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                     {% url 'edit_staff' staff_id as edit_staff %} 
+                    {% comment %} <a href="{% url 'edit_staff' user_id=user_id%}" > {% endcomment %}
+                        <a href="{% if user.id %}{% url 'manage_staff' user_id=user.id %}{% endif %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Manage Staff
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% if user.id %}{% url 'add_student' user_id=user.id %}{% endif %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Add Student
+
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {% url 'edit_student' student.id as edit_student %}
+
+                    <a href="{% if user.id %}{% url 'manage_student' user_id=user.id %}{% endif %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Manage Student
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% if user.id %}{% url 'add_course' user_id=user.id %}{% endif %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Add Course
+
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+               
+                    {% url 'edit_course' course_id as edit_course %}
+                    <a href="{% url 'manage_course' %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Manage Course
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% if user.id %}{% url 'add_subject' user_id=user.id %}{% endif %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Add Subject
+
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                     
+                    {% url 'edit_subject' subject_id as edit_subject %}
+                    <a href="{% url 'manage_subject' %}" class="nav-link">
+                    <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Manage Subject
+
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% if user.id %}{% url 'add_session' user_id=user.id %}{% endif %}" class="nav-link">
+
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Add Batch
+
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                {% url 'manage_session' as manage_session %}
+                {% url 'edit_session' session_id as edit_session %}
+                <a href="{{manage_session}}"
+                    class="nav-link  {% if edit_session == request.path or manage_session == request.path %} active {% endif %}">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                        Manage Batch
+
+                    </p>
+                </a>
+        </li>
+                
+        {% elif 'teacher' in request.COOKIES.role %}
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+        <img src="{% static 'dist/img/AdminLTELogo.png' %} " alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Staff Panel</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="{{ request.user.profile_pic}}" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="#" class="d-block">{{ user}}</a>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                <li class="nav-item">
+                    <a href="{% url 'staff_home' user_id=user_id %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Home
+
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'staff_view_profile' user_id=user_id %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            View/Edit Profile
+
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'staff_add_result' user_id=user_id %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Add Result
+
+                        </p>
+                    </a>
+                </li>  
+                 <li class="nav-item">
+                    <a href="{% url 'edit_student_result' user_id=user_id %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Edit Result
+
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'document_upload_teacher' user_id=request.user.id %}" class="nav-link">
+                        <i class="nav-icon fas fa-upload"></i>
+                        <p>Upload/Review Documents</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url  'staff_view_notification' user_id=user_id %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                           View Notifications
+
+                        </p>
+                    </a>
+                </li>
+    {% else %}
+    <!-- Brand Logo -->
+    <a href="" class="brand-link">
+        
+        <img src="{% static 'dist/img/AdminLTELogo.png' %} " alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Student Panel</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="{{ request.user.profile_pic}}" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="#" class="d-block">{{user}}</a>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                <li class="nav-item">
+                    <a href="{% url 'student_home' user_id=user_id %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Home
+
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'student_view_profile' user_id=user_id %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            View/Edit Profile
+
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'student_view_result' user_id=user_id %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            View Results
+                        </p>
+                    </a>
+                </li>
+          
+                <li class="nav-item">
+                    <a href="{% url 'student_view_notification' user_id=user_id %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                           View Notifications
+                           
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'document_upload_student' user_id=user.id %}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                           Upload documents to staff
+                           
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    {% url 'student_feedback' as student_feedback %}
+                    <a href="{{student_feedback}}" class="nav-link {% if student_feedback == request.path %} active {% endif %}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Upload documents to admin
+
+
+                        </p>
+                    </a>
+                </li>
+          
+    {% endif %}
+{% comment %} {% endfor%} {% endcomment %}
+
+
+
+<li class="nav-item">
+    <a href="{% url 'logout' %}" onclick="return confirm('Your session would be terminated.\n\nProceed?')" class="nav-link">
+        <i class="nav-icon fas fa-th"></i>
+        <p>
+            Logout
+        </p>
+    </a>
+</li>
+</ul>
+</nav>
+<!-- /.sidebar-menu -->
+</div>
+<!-- /.sidebar -->
+</aside>

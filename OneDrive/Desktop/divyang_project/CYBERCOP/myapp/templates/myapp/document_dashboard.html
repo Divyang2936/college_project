@@ -1,0 +1,78 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Dashboard</title>
+</head>
+<body>
+    <h1>Document Dashboard</h1>
+    
+    <!-- Upload Form -->
+    <h1>Upload Document</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+   
+    
+    <!-- List Documents -->
+    <h2>Uploaded Documents</h2>
+    <ul>
+        {% for document in documents %}
+            <li>{{ document.title }}</li>
+        {% endfor %}
+    </ul>
+    
+    <!-- Display Form Errors -->
+    {% if form.errors %}
+    <h2>Form Errors:</h2>
+    <ul>
+        {% for field in form %}
+            {% for error in field.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html> {% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Dashboard</title>
+</head>
+<body>
+    <h1>Document Dashboard</h1>
+    
+   <h3> user you can upload your documents here</h3>
+   <hr>
+   <a href="{% url 'upload_document' user_id=user_id %}">ADD DOCUMENTS</a>
+  
+    <!-- List Documents -->
+    <h2>Uploaded Documents</h2>
+    <ul>
+        {% for document in documents %}
+            <li>{{ document.title }}</li>
+            {{ document.original_filename }}
+            <a href="{% url 'download_decrypted_document' document_id=document.id%}">Download</a>
+        {% endfor %}
+    </ul>
+    
+
+    <!-- Display Form Errors -->
+    {% if form.errors %}
+    <h2>Form Errors:</h2>
+    <ul>
+        {% for field in form %}
+            {% for error in field.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
